@@ -1,0 +1,20 @@
+{
+  "name": "loyalhub-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "LoyalHub 데모 앱 E2E 자동화",
+  "scripts": {
+    "test": "playwright test",
+    "test:local": "BASE_URL=http://localhost:8080 playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.20.2",
+    "typescript": "^7.0.2"
+  }
+}

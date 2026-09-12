@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # 대상은 배포된 앱이다. 이 저장소를 건드리지 않아도 대상이 바뀌면 깨진다.
+  # 매일 한 번 돌려서 '언제부터 깨졌는지'를 알 수 있게 한다.
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: 타입 검사
+        run: npm run typecheck
+
+      # 🔴 여기서는 테스트를 실제로 실행한다.
+      #
+      # playwright-e2e 저장소와 정반대의 판단이다. 거기는 대상이 통제할 수
+      # 없는 외부 사이트라 CI 에서 돌리지 않는다. 여기는 대상 앱도 내가 만들었고,
+      # 배포본이 언제나 같은 시드로 뜨기 때문에 결과가 재현된다.
+      # 깨지면 그건 진짜 회귀다.
+      - name: E2E
+        run: npm test
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
