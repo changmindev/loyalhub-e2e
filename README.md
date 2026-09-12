@@ -6,7 +6,7 @@
 27 tests — 27 passed   (약 4초, Chromium headless)
 ```
 
-대상 앱도 내가 만들었습니다([changmindev/sideproject](https://github.com/changmindev/sideproject)).
+대상 앱도 내가 만들었습니다([changmindev/loyalhub](https://github.com/changmindev/loyalhub)).
 그래서 **테스트가 요구하는 것을 제품에 반영할 수 있습니다** — 셀렉터를 추측하지 않고 계약으로 고정하고,
 시드를 결정적으로 만들고, 결함을 결함이라고 판정할 수 있습니다.
 
@@ -63,7 +63,7 @@ test("발송을 눌러도 문자 요청이 나가지 않는다", ...)
 
 **제품에 테스트 전용 훅을 넣지 않았습니다.** `window.__test` 같은 걸 만들면 그게 곧
 운영 코드가 됩니다. `localStorage` 키와 `data-testid` 계약만으로 충분합니다.
-계약 원문은 대상 앱의 [`docs/E2E.md`](https://github.com/changmindev/sideproject/blob/main/docs/E2E.md) 에 있습니다.
+계약 원문은 대상 앱의 [`docs/E2E.md`](https://github.com/changmindev/loyalhub/blob/main/docs/E2E.md) 에 있습니다.
 
 **상태는 클래스가 아니라 속성으로 읽습니다.** 세그먼트 탭은 `aria-pressed`,
 위험도는 `data-risk-level` 입니다. Tailwind 클래스에 기대면 디자인 토큰을

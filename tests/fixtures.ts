@@ -7,7 +7,7 @@ import { test as base, expect, type Page } from "@playwright/test";
  * 제품에 테스트용 표면을 만들면 그게 곧 운영 코드가 된다.
  * localStorage 키와 `data-testid` 만으로 충분하다.
  *
- * 계약 원문: sideproject/docs/E2E.md
+ * 계약 원문: loyalhub/docs/E2E.md
  */
 export const STORAGE = {
   loggedIn: "loyalhub:isLoggedIn",
