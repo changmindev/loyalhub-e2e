@@ -14,11 +14,11 @@ jobs:
   e2e:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - run: npm ci
@@ -30,13 +30,13 @@ jobs:
       # 🔴 여기서는 테스트를 실제로 실행한다.
       #
       # playwright-e2e 저장소와 정반대의 판단이다. 거기는 대상이 통제할 수
-      # 없는 외부 사이트라 CI 에서 돌리지 않는다. 여기는 대상 앱도 내가 만들었고,
+      # 없는 외부 사이트라 CI 에서 돌리지 않는다. 여기는 대상 앱도 내 저장소이고,
       # 배포본이 언제나 같은 시드로 뜨기 때문에 결과가 재현된다.
       # 깨지면 그건 진짜 회귀다.
       - name: E2E
         run: npm test
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
