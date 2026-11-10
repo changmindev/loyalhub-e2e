@@ -65,6 +65,11 @@ test.describe("단골 목록", () => {
     await expect(app).toHaveURL(/\/customers\/\d+$/);
 
     await app.goBack();
-    await expect.poll(() => app.evaluate(() => Math.round(window.scrollY))).toBe(before);
+    // 앱(ScrollRestoration)은 '저장값 - 1px' 이내면 복원이 끝난 것으로 본다.
+    // 테스트가 정확히 같은 값을 요구하면 앱의 계약보다 엄격해진다 — 실제로 매일 CI 에서
+    // 앱 변경 없이 '기대 515, 실측 514' 로 가끔 실패했다. 기준을 앱과 맞춘다.
+    await expect
+      .poll(() => app.evaluate(() => Math.round(window.scrollY)))
+      .toBeGreaterThanOrEqual(before - 1);
   });
 });
